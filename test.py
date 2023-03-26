@@ -1,4 +1,4 @@
-from requests import post, get, delete
+from requests import post, get, delete, put
 
 
 def test():
@@ -57,6 +57,26 @@ def test():
     print(delete('http://localhost:5000/api/jobs/555').json())
     print()
     print(delete('http://localhost:5000/api/jobs/sss').json())
+    '''
+    правильный + проверка
+    не существует
+    неправильный тип данных
+    '''
+    print()
+    print()
+    print('Put')
+    print()
+    print()
+    print(put('http://localhost:5000/api/jobs/3', json={'title_of_activity': 'changed'}).json())
+    print()
+    print(put('http://localhost:5000/api/jobs/3', json={}).json())
+    print()
+    print(put('http://localhost:5000/api/jobs/99', json={'title_of_activity': 'changed'}).json())
+    '''
+    правильный
+    пустой
+    неправильное значение
+    '''
 
 
 if __name__ == '__main__':

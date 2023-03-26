@@ -70,12 +70,27 @@ def create_works():
 
 @blueprint.route('/api/jobs/<int:works_id>', methods=['DELETE'])
 def delete_news(works_id):
-    db_session.global_init('ab/blogs.db')
+    db_session.global_init('db/blogs.db')
     db_sess = db_session.create_session()
     works = db_sess.query(Works).get(works_id)
     if not works:
         return dumps({'error': 'Not found'})
     db_sess.delete(works)
+    db_sess.commit()
+    db_sess.close()
+    return dumps({'success': 'OK'})
+
+
+@blueprint.route('/api/jobs/<int:works_id>', methods=['PUT'])
+def edit_news(works_id):
+    db_session.global_init('db/blogs.db')
+    db_sess = db_session.create_session()
+    works = db_sess.query(Works).get(works_id)
+    if not works:
+        return dumps({'error': 'Not found'})
+    if not request.json:
+        return dumps({'error': 'Empty request'}, indent=4)
+    works.title_of_activity = request.json['title_of_activity']
     db_sess.commit()
     db_sess.close()
     return dumps({'success': 'OK'})
