@@ -92,10 +92,10 @@ def edit_news(users_id):
     elif not all(key in request.json for key in
                  ['name', 'about', 'email', 'hashed_password']):
         return dumps({'error': 'Bad request'}, indent=4)
-    users.name = request.json['name'],
-    users.about = request.json['about'],
-    users.email = request.json['email'],
-    users.hashed_password = request.json['hashed_password'],
+    users.name = request.json['name']
+    users.about = request.json['about']
+    users.email = request.json['email']
+    users.hashed_password = request.json['hashed_password']
     db_sess.commit()
     db_sess.close()
     return dumps({'success': 'OK'})
