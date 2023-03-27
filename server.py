@@ -12,7 +12,7 @@ from data.users import User
 from flask_login import LoginManager
 from forms.works import WorksLogForm
 from forms.user import RegisterForm
-from data import db_session, jobs_api
+from data import db_session, jobs_api, users_api
 
 
 app = Flask(__name__, template_folder='templates')
@@ -38,6 +38,7 @@ def bad_request(_):
 def main():
     db_session.global_init("db/blogs.db")
     app.register_blueprint(jobs_api.blueprint)
+    app.register_blueprint(users_api.blueprint)
     app.run()
 
 

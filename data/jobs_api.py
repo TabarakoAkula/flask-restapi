@@ -90,7 +90,14 @@ def edit_news(works_id):
         return dumps({'error': 'Not found'})
     if not request.json:
         return dumps({'error': 'Empty request'}, indent=4)
+    elif not all(key in request.json for key in
+                 ['title_of_activity', 'team_leader', 'work_size', 'collaborators', 'is_finished']):
+        return dumps({'error': 'Bad request'}, indent=4)
     works.title_of_activity = request.json['title_of_activity']
+    works.team_leader = request.json['team_leader']
+    works.is_finished = request.json['is_finished']
+    works.collaborators = request.json['collaborators']
+    works.work_size = request.json['work_size']
     db_sess.commit()
     db_sess.close()
     return dumps({'success': 'OK'})
